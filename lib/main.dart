@@ -28,31 +28,16 @@ class FormularioTransferencia extends StatelessWidget {
       ),
       body: Column(
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: TextField(
-              controller: _controladorCampoNumeroConta,
-              style: const TextStyle(fontSize: 24.0),
-              decoration: const InputDecoration(
-                labelText: 'Número da conta',
-                hintText: '0000',
-              ),
-              keyboardType: TextInputType.number,
-            ),
+          Editor(
+            controlador: _controladorCampoNumeroConta,
+            rotulo: 'Número da conta',
+            dica: '0000',
           ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: TextField(
-              controller: _controladorCampoValor,
-              style: const TextStyle(fontSize: 24.0),
-              decoration: const InputDecoration(
-                icon: Icon(Icons.monetization_on),
-                labelText: 'Valor',
-                hintText: '0.00',
-              ),
-              keyboardType: TextInputType.number,
-            ),
-          ),
+          Editor(
+              controlador: _controladorCampoValor,
+              rotulo: 'Valor',
+              dica: '0.00',
+              icone: Icons.monetization_on),
           const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () {
@@ -70,6 +55,32 @@ class FormularioTransferencia extends StatelessWidget {
             child: const Text('Confirmar'),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class Editor extends StatelessWidget {
+  final TextEditingController? controlador;
+  final String? rotulo;
+  final String? dica;
+  final IconData? icone;
+
+  Editor({this.controlador, this.rotulo, this.dica, this.icone});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: TextField(
+        controller: controlador,
+        style: const TextStyle(fontSize: 24.0),
+        decoration: InputDecoration(
+          icon: icone != null ? Icon(icone) : null,
+          labelText: rotulo,
+          hintText: dica,
+        ),
+        keyboardType: TextInputType.number,
       ),
     );
   }
